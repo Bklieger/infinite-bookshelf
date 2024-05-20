@@ -1,4 +1,4 @@
-# groqbook
+# Groqbook: Generate entire books in seconds using Groq and Llama3
  
 
 [Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
