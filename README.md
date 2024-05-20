@@ -2,21 +2,7 @@
 
 # Groqbook: Generate entire books in seconds using Groq and Llama3
  
-Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq.
-
-
-## Features
-
-- 📖 Scaffolded prompting that strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
-- 🖊️ Uses markdown styling to create an aesthetic book on the streamlit app that includes tables and code 
-- 📂 Allows user to download a text file with the entire book contents
-
-### Technologies
-
-- Streamlit
-- Llama3 on Groq Cloud
-
-
+Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow groqbook to generate quality fiction books as well.
 
 [Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
 > Demo of Groqbook fast generation of book content
@@ -25,6 +11,12 @@ Groqbook is a streamlit app that scaffolds the creation of books from a one-line
 [Second Part of Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/5b0147fb-90f3-4584-8572-fa452545d833)
 > Demo of Groqbook downloading markdown-styled book
 
+
+### Features
+
+- 📖 Scaffolded prompting that strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
+- 🖊️ Uses markdown styling to create an aesthetic book on the streamlit app that includes tables and code 
+- 📂 Allows user to download a text file with the entire book contents
 
 > [!IMPORTANT]
 > To use Groqbook, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
@@ -36,6 +28,8 @@ Groqbook is a streamlit app that scaffolds the creation of books from a one-line
 ### Hosted on Streamlit:
 
 To use Groqbook, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+
+---
 
 ### Run locally:
 
@@ -71,9 +65,22 @@ python3 -m streamlit run main.py
 ~~~
 
 
+## Details
+
+
+### Technologies
+
+- Streamlit
+- Llama3 on Groq Cloud
+
+### Limitations
+
+- May generate inaccurate information or placeholder content
+
+
 ## Example Generated Books:
 
 | Example                                      | Prompt                                                                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| [LLM Example](Example_1.md)             |  The Basics of Large Language Models                                       |
-| [Storytelling Chatbot](Example_2.md) | Data Structures and Algorithms in Java                                            |
+| [LLM Basics](Example_1.md)             |  The Basics of Large Language Models                                       |
+| [Data Structures and Algorithms](Example_2.md) | Data Structures and Algorithms in Java                                            |
