@@ -88,4 +88,4 @@ python3 -m streamlit run main.py
 
 ### Limitations
 
-- May generate inaccurate information or placeholder content
+Groqbook may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
