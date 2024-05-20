@@ -10,7 +10,8 @@ if 'api_key' not in st.session_state:
     st.session_state.api_key = GROQ_API_KEY
 
 if 'groq' not in st.session_state:
-    st.session_state.groq = Groq()
+    if GROQ_API_KEY:
+        st.session_state.groq = Groq()
 
 class Book:
     def __init__(self, structure):
