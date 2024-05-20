@@ -20,6 +20,14 @@ Groqbook is a streamlit app that scaffolds the creation of books from a one-line
 - 🖊️ Uses markdown styling to create an aesthetic book on the streamlit app that includes tables and code 
 - 📂 Allows user to download a text file with the entire book contents
 
+### Example Generated Books:
+
+| Example                                      | Prompt                                                                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| [LLM Basics](Example_1.md)             |  The Basics of Large Language Models                                       |
+| [Data Structures and Algorithms](Example_2.md) | Data Structures and Algorithms in Java                                            |
+
+---
 
 ## Quickstart
 
@@ -41,7 +49,7 @@ Alternative, you can run groqbook locally with streamlit.
 First, you can set your Groq API key in the environment variables:
 
 ~~~
-export $GROQ_API_KEY = ```gsk_yA...```
+export $GROQ_API_KEY = gsk_yA...
 ~~~
 
 This is an optional step that allows you to skip setting the Groq API key later in the streamlit app.
@@ -81,11 +89,3 @@ python3 -m streamlit run main.py
 ### Limitations
 
 - May generate inaccurate information or placeholder content
-
-
-## Example Generated Books:
-
-| Example                                      | Prompt                                                                                                                                |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| [LLM Basics](Example_1.md)             |  The Basics of Large Language Models                                       |
-| [Data Structures and Algorithms](Example_2.md) | Data Structures and Algorithms in Java                                            |
