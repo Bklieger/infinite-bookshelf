@@ -169,7 +169,7 @@ try:
 
     with st.form("groqform"):
         if not GROQ_API_KEY:
-            groq_input_key = st.text_input("Enter your Groq API Key:", "gsk_yA...")
+            groq_input_key = st.text_input("Enter your Groq API Key (gsk_yA...):", "",type="password")
 
         topic_text = st.text_input("What do you want the book to be about?", "")
 
