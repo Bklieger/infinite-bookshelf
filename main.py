@@ -97,7 +97,7 @@ def generate_book_structure(prompt: str):
             },
             {
                 "role": "user",
-                "content": f"Write a comprehensive structure, omiting common sections like a forward or author's note, for a long (>300 page) book on the following subject:\n\n<subject>{prompt}</subject>"
+                "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book on the following subject:\n\n<subject>{prompt}</subject>"
             }
         ],
         temperature=0.3,
