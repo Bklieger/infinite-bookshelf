@@ -94,5 +94,10 @@ Groqbook may generate inaccurate information or placeholder content. It should b
 
 ### v0.2.0
 May 29th, 2024:
+
 [Demo of Groqbook Statistics](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
 > Demo of Groqbook's Generation Statistics
+
+## Contributing
+
+Improvements through PRs are welcome!
