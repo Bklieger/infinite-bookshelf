@@ -90,6 +90,12 @@ python3 -m streamlit run main.py
 
 Groqbook may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
 
+### Future Features:
+- Ability to save PDF version of books
+- Improve CSS for PDF downloads
+- Ability to save books to Google drive
+- Ability to title books which shows on downloads
+
 ## Changelog
 
 ### v0.2.0
