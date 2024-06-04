@@ -95,6 +95,7 @@ Groqbook may generate inaccurate information or placeholder content. It should b
 - Improve CSS for PDF downloads
 - Ability to save books to Google drive
 - Ability to title books which shows on downloads
+- Optional seed content field to input existing notes
 
 ## Changelog
 
