@@ -141,7 +141,8 @@ def create_pdf_file(content: str):
     Create a PDF file from the provided content.
     """
     pdf_buffer = BytesIO()
-    md2pdf(pdf_buffer, md_content="Generated using Llama3 on <a href=\"https://github.com/bklieger/groqbook\" style=\"color: blue;\">Groqbook</a>\n\n"+content)
+    md2pdf(pdf_buffer, md_content=content)
+    # md2pdf(pdf_buffer, md_content="Generated using Llama3 on <a href=\"https://github.com/bklieger/groqbook\" style=\"color: blue;\">Groqbook</a>\n\n"+content) # Optional citation
     pdf_buffer.seek(0)
     return pdf_buffer
 
