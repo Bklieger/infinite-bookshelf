@@ -108,7 +108,7 @@ May 29th, 2024:
 ### v0.3.0
 June 8th, 2024:
 
-[Image of New PDF Download Option](assets/imgs/release_note_jun_8th.png)
+![Image of New PDF Download Option](assets/imgs/release_note_jun_8th.png)
 > Download Books as Styled PDFs
 
 ## Contributing
