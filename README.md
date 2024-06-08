@@ -90,12 +90,11 @@ python3 -m streamlit run main.py
 
 Groqbook may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
 
-### Future Features:
-- Ability to save PDF version of books
-- Improve CSS for PDF downloads
-- Ability to save books to Google drive
-- Ability to title books which shows on downloads
-- Optional seed content field to input existing notes
+
+## Contributing
+
+Improvements through PRs are welcome!
+
 
 ## Changelog
 
@@ -111,6 +110,9 @@ June 8th, 2024:
 ![Image of New PDF Download Option](assets/imgs/release_note_jun_8th.png)
 > Download Books as Styled PDFs
 
-## Contributing
 
-Improvements through PRs are welcome!
+### Future Features:
+- Improve CSS for PDF downloads
+- Ability to save books to Google drive
+- Ability to title books which shows on downloads
+- Optional seed content field to input existing notes
