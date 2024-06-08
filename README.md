@@ -90,6 +90,12 @@ python3 -m streamlit run main.py
 
 Groqbook may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
 
+
+## Contributing
+
+Improvements through PRs are welcome!
+
+
 ## Changelog
 
 ### v0.2.0
@@ -98,6 +104,15 @@ May 29th, 2024:
 [Demo of Groqbook Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
 > Demo of Groqbook's Generation Statistics
 
-## Contributing
+### v0.3.0
+June 8th, 2024:
 
-Improvements through PRs are welcome!
+![Image of New PDF Download Option](assets/imgs/release_note_jun_8th.png)
+> Download Books as Styled PDFs
+
+
+### Future Features:
+- Improve CSS for PDF downloads
+- Ability to save books to Google drive
+- Ability to title books which shows on downloads
+- Optional seed content field to input existing notes

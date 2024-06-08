@@ -3,6 +3,7 @@ from groq import Groq
 import json
 import os
 from io import BytesIO
+from md2pdf.core import md2pdf
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", None)
 
@@ -135,6 +136,17 @@ def create_markdown_file(content: str) -> BytesIO:
     markdown_file.seek(0)
     return markdown_file
 
+def create_pdf_file(content: str):
+    """
+    Create a PDF file from the provided content.
+    """
+    pdf_buffer = BytesIO()
+    md2pdf(pdf_buffer, md_content=content)
+    # md2pdf(pdf_buffer, md_content="Generated using Llama3 on <a href=\"https://github.com/bklieger/groqbook\" style=\"color: blue;\">Groqbook</a>\n\n"+content) # Optional citation
+    pdf_buffer.seek(0)
+    return pdf_buffer
+
+
 def generate_book_structure(prompt: str):
     """
     Returns book structure content as well as total tokens and total time for generation.
@@ -222,15 +234,27 @@ def empty_st():
 try:
     if st.button('End Generation and Download Book'):
         if "book" in st.session_state:
+
+            # Create markdown file
             markdown_file = create_markdown_file(st.session_state.book.get_markdown_content())
             st.download_button(
-                label='Confirm Download',
+                label='Download Text',
                 data=markdown_file,
                 file_name='generated_book.txt',
                 mime='text/plain'
             )
+
+            # Create pdf file (styled)
+            pdf_file = create_pdf_file(st.session_state.book.get_markdown_content())
+            st.download_button(
+                label='Download PDF',
+                data=pdf_file,
+                file_name='generated_book.pdf',
+                mime='text/plain'
+            )
         else:
             raise ValueError("Please generate content first before downloading the book.")
+
 
     with st.form("groqform"):
         if not GROQ_API_KEY:
