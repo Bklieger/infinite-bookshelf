@@ -105,6 +105,12 @@ May 29th, 2024:
 [Demo of Groqbook Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
 > Demo of Groqbook's Generation Statistics
 
+### v0.3.0
+June 8th, 2024:
+
+[Image of New PDF Download Option](assets/imgs/release_note_jun_8th.png)
+> Download Books as Styled PDFs
+
 ## Contributing
 
 Improvements through PRs are welcome!
