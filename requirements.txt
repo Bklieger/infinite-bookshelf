@@ -51,4 +51,5 @@ tornado==6.4
 typing_extensions==4.11.0
 tzdata==2024.1
 urllib3==2.2.1
+weasyprint
 md2pdf
