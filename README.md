@@ -112,7 +112,6 @@ June 8th, 2024:
 
 
 ### Future Features:
-- Improve CSS for PDF downloads
-- Ability to save books to Google drive
 - Ability to title books which shows on downloads
+- Ability to save books to Google drive
 - Optional seed content field to input existing notes
