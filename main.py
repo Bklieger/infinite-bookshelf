@@ -3,7 +3,8 @@ from groq import Groq
 import json
 import os
 from io import BytesIO
-from md2pdf.core import md2pdf
+from markdown import markdown
+from weasyprint import HTML, CSS
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", None)
 
@@ -136,16 +137,80 @@ def create_markdown_file(content: str) -> BytesIO:
     markdown_file.seek(0)
     return markdown_file
 
-def create_pdf_file(content: str):
+def create_pdf_file(content: str) -> BytesIO:
     """
-    Create a PDF file from the provided content.
+    Create a PDF file from the provided Markdown content.
+    Converts Markdown to styled HTML, then HTML to PDF.
     """
-    pdf_buffer = BytesIO()
-    md2pdf(pdf_buffer, md_content=content)
-    # md2pdf(pdf_buffer, md_content="Generated using Llama3 on <a href=\"https://github.com/bklieger/groqbook\" style=\"color: blue;\">Groqbook</a>\n\n"+content) # Optional citation
-    pdf_buffer.seek(0)
-    return pdf_buffer
 
+    html_content = markdown(content, extensions=['extra', 'codehilite'])
+
+    styled_html = f"""
+    <html>
+        <head>
+            <style>
+                @page {{
+                    margin: 2cm;
+                }}
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    font-size: 12pt;
+                }}
+                h1, h2, h3, h4, h5, h6 {{
+                    color: #333366;
+                    margin-top: 1em;
+                    margin-bottom: 0.5em;
+                }}
+                p {{
+                    margin-bottom: 0.5em;
+                }}
+                code {{
+                    background-color: #f4f4f4;
+                    padding: 2px 4px;
+                    border-radius: 4px;
+                    font-family: monospace;
+                    font-size: 0.9em;
+                }}
+                pre {{
+                    background-color: #f4f4f4;
+                    padding: 1em;
+                    border-radius: 4px;
+                    white-space: pre-wrap;
+                    word-wrap: break-word;
+                }}
+                blockquote {{
+                    border-left: 4px solid #ccc;
+                    padding-left: 1em;
+                    margin-left: 0;
+                    font-style: italic;
+                }}
+                table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-bottom: 1em;
+                }}
+                th, td {{
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }}
+                th {{
+                    background-color: #f2f2f2;
+                }}
+            </style>
+        </head>
+        <body>
+            {html_content}
+        </body>
+    </html>
+    """
+
+    pdf_buffer = BytesIO()
+    HTML(string=styled_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    
+    return pdf_buffer
 
 def generate_book_structure(prompt: str):
     """
