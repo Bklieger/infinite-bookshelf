@@ -62,9 +62,9 @@ python3 -m venv venv
 ~~~
 
 ~~~
-source venv/bin/activate #bash
+source venv/bin/activate # Bash
 
-venv\Scripts\activate.bat # Windows cmd
+venv\Scripts\activate.bat # Windows
 ~~~
 
 ~~~
@@ -73,7 +73,7 @@ pip3 install -r requirements.txt
 
 
 #### Step 3 (Windows)
-Install gtk3 
+It may be required to install gtk3 for users on windows.
 
 ~~~
 https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer?tab=readme-ov-file
