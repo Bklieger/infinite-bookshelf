@@ -62,7 +62,9 @@ python3 -m venv venv
 ~~~
 
 ~~~
-source venv/bin/activate
+source venv/bin/activate #bash
+
+venv\Scripts\activate.bat # Windows cmd
 ~~~
 
 ~~~
@@ -70,12 +72,20 @@ pip3 install -r requirements.txt
 ~~~
 
 
-#### Step 3
+#### Step 3 (Windows)
+Install gtk3 
+
+~~~
+https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer?tab=readme-ov-file
+~~~
+
+#### Step 4
 Finally, you can run the streamlit app.
 
 ~~~
 python3 -m streamlit run main.py
 ~~~
+
 
 
 ## Details
