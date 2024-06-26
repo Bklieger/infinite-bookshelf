@@ -72,7 +72,7 @@ pip3 install -r requirements.txt
 ~~~
 
 
-#### Step 3 (Windows)
+#### Step 3 (Windows Only)
 It may be required to install gtk3 for users on windows.
 
 ~~~
