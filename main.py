@@ -5,8 +5,12 @@ import os
 from io import BytesIO
 from markdown import markdown
 from weasyprint import HTML, CSS
+from dotenv import load_dotenv
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", None)
+# load .env file to environment
+load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", None)
 
 if 'api_key' not in st.session_state:
     st.session_state.api_key = GROQ_API_KEY
