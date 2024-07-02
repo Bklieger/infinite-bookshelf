@@ -64,13 +64,12 @@ class GenerationStatistics:
                 f"| Inference Time (s) | {self.input_time:.2f}            | {self.output_time:.2f}            | {self.total_time:.2f}            |")
 
 class Book:
-    def __init__(self, title, structure):
-        self.title = title
+    def __init__(self, book_title, structure):
+        self.book_title = book_title
         self.structure = structure
         self.contents = {title: "" for title in self.flatten_structure(structure)}
         self.placeholders = {title: st.empty() for title in self.flatten_structure(structure)}
-
-        st.markdown(f"# {self.title}")
+        st.markdown(f"# {self.book_title}")
         st.markdown("## Generating the following:")
         toc_columns = st.columns(4)
         self.display_toc(self.structure, toc_columns)
@@ -122,7 +121,12 @@ class Book:
         if structure is None:
             structure = self.structure
         
-        markdown_content = f"# {self.title}\n\n"
+        if level==1:
+            markdown_content = f"# {self.book_title}\n\n"
+            
+        else:
+            markdown_content = ""
+        
         for title, content in structure.items():
             if self.contents[title].strip():  # Only include title if there is content
                 markdown_content += f"{'#' * level} {title}\n{self.contents[title]}\n\n"
@@ -382,7 +386,7 @@ try:
 
             # Generate AI book title
             st.session_state.book_title = generate_book_title(topic_text)
-            st.write(f"Generated book title: {st.session_state.book_title}")
+            st.write(f"## {st.session_state.book_title}")
 
             large_model_generation_statistics, book_structure = generate_book_structure(topic_text)
 
