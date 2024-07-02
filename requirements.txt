@@ -66,3 +66,4 @@ urllib3==2.2.1
 weasyprint==62.3
 webencodings==0.5.1
 zopfli==0.2.3
+python-dotenv==1.0.1
