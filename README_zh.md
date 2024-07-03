@@ -1,5 +1,9 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+<p align="center">
+    【<a href="README.md">English </a> | 简体中文】
+</p>
+
 # Groqbook: 使用 Groq 和 Llama3 在几秒钟内生成整本书籍
 
 Groqbook 是一个 streamlit 应用程序，它使用 Groq 上的 Llama3 从一句话的提示中构建书籍的创建。它在非小说书籍上效果很好，并在几秒钟内生成每一章。该应用程序混合使用 Llama3-8b 和 Llama3-70b，利用较大的模型生成结构，较小的模型生成内容。目前，模型仅使用章节标题的上下文生成章节内容。未来，这将扩展到整本书的完整上下文，以便 groqbook 生成高质量的小说书籍。
