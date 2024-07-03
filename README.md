@@ -1,5 +1,9 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+<p align="center">
+    【English | <a href="README_zh.md">简体中文</a>】 
+</p>
+
 # Groqbook: Generate entire books in seconds using Groq and Llama3
  
 Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow groqbook to generate quality fiction books as well.
