@@ -279,7 +279,7 @@ def generate_book_structure(prompt: str):
             },
             {
                 "role": "user",
-                "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book. Very Important that use the following subject and additional instructions to write the book. subject:\n\n<subject>{prompt}</subject>\n\nAdditional instructions: \n\n<instructions>{additional_instructions}</instructions>",
+                "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book. It is very important that use the following subject and additional instructions to write the book. \n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
             },
         ],
         temperature=0.3,
@@ -309,11 +309,11 @@ def generate_section(prompt: str, additional_instructions: str):
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided. Also, if additional instructions are provided consider them very important",
+                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided. If additional instructions are provided, consider them very important. Only output the content.",
             },
             {
                 "role": "user",
-                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n section:\n\n<section_title>{prompt}</section_title>.\n\nadditional_instructions:\n\n<instructions>{additional_instructions}</instructions>",
+                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n<section_title>{prompt}</section_title>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
             },
         ],
         temperature=0.3,
