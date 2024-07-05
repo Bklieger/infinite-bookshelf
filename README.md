@@ -49,7 +49,7 @@ Alternative, you can run groqbook locally with streamlit.
 First, you can set your Groq API key in the environment variables:
 
 ~~~
-export $GROQ_API_KEY = gsk_yA...
+export GROQ_API_KEY="gsk_yA..."
 ~~~
 
 This is an optional step that allows you to skip setting the Groq API key later in the streamlit app.
