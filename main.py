@@ -20,6 +20,30 @@ if "groq" not in st.session_state:
         st.session_state.groq = Groq()
 
 
+# Initialize
+if "button_disabled" not in st.session_state:
+    st.session_state.button_disabled = False
+
+if "button_text" not in st.session_state:
+    st.session_state.button_text = "Generate"
+
+if "statistics_text" not in st.session_state:
+    st.session_state.statistics_text = ""
+
+if "book_title" not in st.session_state:
+    st.session_state.book_title = ""
+
+# st.write(
+#     """
+# # Groqbook: Write full books using llama3 (8b and 70b) on Groq
+# """
+# )
+
+st.set_page_config(page_title="GroqBook", page_icon="📚")
+
+st.title("Groqbook: Write full books using llama3 (8b and 70b) on Groq")
+
+
 class GenerationStatistics:
     def __init__(
         self,
@@ -86,7 +110,9 @@ class Book:
         self.book_title = book_title
         self.structure = structure
         self.contents = {title: "" for title in self.flatten_structure(structure)}
-        self.placeholders = {title: st.empty() for title in self.flatten_structure(structure)}
+        self.placeholders = {
+            title: st.empty() for title in self.flatten_structure(structure)
+        }
         st.markdown(f"# {self.book_title}")
         st.markdown("## Generating the following:")
         toc_columns = st.columns(4)
@@ -115,7 +141,7 @@ class Book:
     def display_structure(self, structure=None, level=1):
         if structure is None:
             structure = self.structure
-            
+
         for title, content in structure.items():
             if self.contents[title].strip():  # Only display title if there is content
                 st.markdown(f"{'#' * level} {title}")
@@ -138,13 +164,13 @@ class Book:
         """
         if structure is None:
             structure = self.structure
-        
-        if level==1:
+
+        if level == 1:
             markdown_content = f"# {self.book_title}\n\n"
-            
+
         else:
             markdown_content = ""
-        
+
         for title, content in structure.items():
             if self.contents[title].strip():  # Only include title if there is content
                 markdown_content += f"{'#' * level} {title}\n{self.contents[title]}\n\n"
@@ -241,6 +267,7 @@ def create_pdf_file(content: str) -> BytesIO:
 
     return pdf_buffer
 
+
 def generate_book_title(prompt: str):
     """
     Generate a book title using AI.
@@ -250,12 +277,12 @@ def generate_book_title(prompt: str):
         messages=[
             {
                 "role": "system",
-                "content": "Generate suitable book titles for the provided topics. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be between 7 and 25 words long, and it must be attractive enough!"
+                "content": "Generate suitable book titles for the provided topics. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be between 7 and 25 words long, and it must be attractive enough!",
             },
             {
                 "role": "user",
-                "content": f"Generate a book title for the following topic. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be at least 7 words and 25 words long, and it must be attractive enough:\n\n{prompt}"
-            }
+                "content": f"Generate a book title for the following topic. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be at least 7 words and 25 words long, and it must be attractive enough:\n\n{prompt}",
+            },
         ],
         temperature=0.7,
         max_tokens=100,
@@ -266,7 +293,14 @@ def generate_book_title(prompt: str):
 
     return completion.choices[0].message.content.strip()
 
-def generate_book_structure(prompt: str):
+
+def generate_book_structure(
+    prompt: str,
+    additional_instructions: str,
+    seed_content: str,
+    writing_style: str,
+    complexity_level: str,
+):
     """
     Returns book structure content as well as total tokens and total time for generation.
     """
@@ -275,11 +309,13 @@ def generate_book_structure(prompt: str):
         messages=[
             {
                 "role": "system",
-                "content": 'Write in JSON format:\n\n{"Title of section goes here":"Description of section goes here",\n"Title of section goes here":{"Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here"}}',
+                # "content": 'Write in JSON format:\n\n{"Title of section goes here":"Description of section goes here",\n"Title of section goes here":{"Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here"}}',
+                "content": f'Create a book structure using the following parameters:\nWriting Style: {writing_style}\nComplexity Level: {complexity_level}\n\n. Write in JSON format:\n\n{{"Title of section goes here":"Description of section goes here","Title of section goes here":{{"Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here","Title of section goes here":"Description of section goes here"}}}}',
             },
             {
                 "role": "user",
-                "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book. It is very important that use the following subject and additional instructions to write the book. \n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
+                # "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book. It is very important that use the following subject and additional instructions to write the book. \n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
+                "content": f"Write a comprehensive structure, omitting introduction and conclusion sections (foreword, author's note, summary), for a book. Use the following subject and additional instructions to write the book. If seed content is provided, incorporate it into the structure.\n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>\n\n<seed_content>{seed_content}</seed_content>",
             },
         ],
         temperature=0.3,
@@ -303,17 +339,23 @@ def generate_book_structure(prompt: str):
     return statistics_to_return, completion.choices[0].message.content
 
 
-def generate_section(prompt: str, additional_instructions: str):
+def generate_section(
+    prompt: str,
+    additional_instructions: str,
+    seed_content: str,
+    writing_style: str,
+    complexity_level: str,
+):
     stream = st.session_state.groq.chat.completions.create(
         model="llama3-8b-8192",
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided. If additional instructions are provided, consider them very important. Only output the content.",
+                "content": "You are an expert writer creating a comprehensive book chapter. Your writing should be: - \n\nEngaging and tailored to the specified writing style, tone, and complexity level. \nWell-structured with clear subheadings, paragraphs, and transitions. \nRich in relevant examples, analogies, and explanations. \nConsistent with provided seed content and additional instructions. \nFocused on delivering value through insightful analysis and information. \nFactually accurate based on the latest available information. \nCreative, offering unique perspectives or thought-provoking ideas. \n\nEnsure each section flows logically, maintaining coherence throughout the chapter",
             },
             {
                 "role": "user",
-                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n<section_title>{prompt}</section_title>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
+                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n<section_title>{prompt}</section_title>\n\n<additional_instructions>{additional_instructions}</additional_instructions>\n\n<seed_content>{seed_content}</seed_content>\n\n<writing_style>{writing_style}</writing_style>\n\n<complexity_level>{complexity_level}</complexity_level> \n\n Please incorporate the following elements in your chapter: \n1. An engaging introduction that sets the context for the section. \n2. Clear and logical subheadings to organize the content. \n3. In-depth explanations of key concepts, with examples where appropriate. \n4. Critical analysis or discussion of the topic's importance or implications. \n5. A novel perspective or thought-provoking idea related to the topic. \n6. A conclusion that summarizes the main points and potentially links to the next section",
             },
         ],
         temperature=0.3,
@@ -342,26 +384,6 @@ def generate_section(prompt: str, additional_instructions: str):
             yield statistics_to_return
 
 
-# Initialize
-if "button_disabled" not in st.session_state:
-    st.session_state.button_disabled = False
-
-if "button_text" not in st.session_state:
-    st.session_state.button_text = "Generate"
-
-if "statistics_text" not in st.session_state:
-    st.session_state.statistics_text = ""
-
-if 'book_title' not in st.session_state:
-    st.session_state.book_title = ""
-
-st.write(
-    """
-# Groqbook: Write full books using llama3 (8b and 70b) on Groq
-"""
-)
-
-
 def disable():
     st.session_state.button_disabled = True
 
@@ -374,143 +396,253 @@ def empty_st():
     st.empty()
 
 
-try:
-    if st.button("End Generation and Download Book"):
-        if "book" in st.session_state:
-            # Create markdown file
-            markdown_file = create_markdown_file(
-                st.session_state.book.get_markdown_content()
-            )
-            st.download_button(
-                label="Download Text",
-                data=markdown_file,
-                file_name=f'{st.session_state.book_title}.txt',
-                mime='text/plain'
-            )
+def process_uploaded_file(uploaded_file):
+    if uploaded_file is not None:
+        return uploaded_file.getvalue().decode("utf-8")
+    return ""
 
-            # Create pdf file (styled)
-            pdf_file = create_pdf_file(st.session_state.book.get_markdown_content())
-            st.download_button(
-                label="Download PDF",
-                data=pdf_file,
-                file_name=f'{st.session_state.book_title}.pdf',
-                mime='application/pdf'
-            )
-        else:
-            raise ValueError("Please generate content first before downloading the book.")
 
-    with st.form("groqform"):
-        if not GROQ_API_KEY:
-            groq_input_key = st.text_input(
-                "Enter your Groq API Key (gsk_yA...):", "", type="password"
-            )
+# Get the current active tab from URL parameters
+active_tab = st.query_params.get("tab", "Generate Book")
 
-        topic_text = st.text_input(
-            "What do you want the book to be about?",
-            value="",
-            help="Enter the main topic or title of your book",
-        )
+# Create tabs
+tab_names = ["Generate Book", "Generation Statistics", "About"]
+tabs = st.tabs(tab_names)
 
-        additional_instructions = st.text_area(
-            "Additional Instructions (optional)",
-            help="Provide any specific guidelines or preferences for the book's content",
-            placeholder="E.g., 'Focus on beginner-friendly content', 'Include case studies', etc.",
-            value="",
-        )
+# Set the active tab
+active_tab_index = tab_names.index(active_tab)
 
-        # Generate button
-        submitted = st.form_submit_button(
-            st.session_state.button_text,
-            on_click=disable,
-            disabled=st.session_state.button_disabled,
-        )
 
-        # Statistics
-        placeholder = st.empty()
+def switch_to_tab(tab_name):
+    st.query_params["tab"] = tab_name
 
-        def display_statistics():
-            with placeholder.container():
-                if st.session_state.statistics_text:
-                    if (
-                        "Generating structure in background"
-                        not in st.session_state.statistics_text
-                    ):
-                        st.markdown(
-                            st.session_state.statistics_text + "\n\n---\n"
-                        )  # Format with line if showing statistics
-                    else:
-                        st.markdown(st.session_state.statistics_text)
-                else:
-                    placeholder.empty()
 
-        if submitted:
-            if len(topic_text) < 10:
-                raise ValueError("Book topic must be at least 10 characters long")
+with tabs[0]:
+    try:
+        if st.button("End Generation and Download Book"):
+            if "book" in st.session_state:
+                # Create markdown file
+                markdown_file = create_markdown_file(
+                    st.session_state.book.get_markdown_content()
+                )
+                st.download_button(
+                    label="Download Text",
+                    data=markdown_file,
+                    file_name=f"{st.session_state.book_title}.txt",
+                    mime="text/plain",
+                )
 
-            st.session_state.button_disabled = True
-            st.session_state.statistics_text = "Generating book title and structure in background...."
-            display_statistics()
+                # Create pdf file (styled)
+                pdf_file = create_pdf_file(st.session_state.book.get_markdown_content())
+                st.download_button(
+                    label="Download PDF",
+                    data=pdf_file,
+                    file_name=f"{st.session_state.book_title}.pdf",
+                    mime="application/pdf",
+                )
+            else:
+                raise ValueError(
+                    "Please generate content first before downloading th book.    "
+                )
 
+
+        with st.form("groqform"):
             if not GROQ_API_KEY:
-                st.session_state.groq = Groq(api_key=groq_input_key)
+                groq_input_key = st.text_input(
+                    "Enter your Groq API Key (gsk_yA...):", "", type="password"
+                )
 
-            large_model_generation_statistics, book_structure = generate_book_structure(
-                topic_text
-            )
-            # Generate AI book title
-            st.session_state.book_title = generate_book_title(topic_text)
-            st.write(f"## {st.session_state.book_title}")
-
-            large_model_generation_statistics, book_structure = generate_book_structure(topic_text)
-
-            total_generation_statistics = GenerationStatistics(
-                model_name="llama3-8b-8192"
+            topic_text = st.text_input(
+                "What do you want the book to be about?",
+                value="",
+                help="Enter the main topic or title of your book",
             )
 
-            try:
-                book_structure_json = json.loads(book_structure)
-                book = Book(st.session_state.book_title, book_structure_json)
-                
-                if 'book' not in st.session_state:
-                    st.session_state.book = book
+            seed_content = st.text_area(
+                "Seed Content (optional)",
+                help="Provide any existing notes or content to be incorporated into the     book",
+                placeholder="Enter your existing notes or content here...",
+                height=200,
+                value="",
+            )
 
-                # Print the book structure to the terminal to show structure
-                print(json.dumps(book_structure_json, indent=2))
+            uploaded_file = st.file_uploader(
+                "Or upload a text file",
+                type=["txt"],
+                help="Upload a text file with your seed content (optional)",
+            )
 
-                st.session_state.book.display_structure()
-    
-                def stream_section_content(sections):
-                    for title, content in sections.items():
-                        if isinstance(content, str):
-                            content_stream = generate_section(
-                                title + ": " + content, additional_instructions
+            # Advanced options (you can move this to a sidebar if preferred)
+            st.subheader("Advanced Options")
+            writing_style = st.selectbox(
+                "Writing Style", ["Casual", "Formal", "Academic", "Creative"]
+            )
+            complexity_level = st.select_slider(
+                "Complexity Level",
+                options=["Beginner", "Intermediate", "Advanced", "Expert"],
+            )
+            additional_instructions = st.text_area(
+                "Additional Instructions (optional)",
+                help="Provide any specific guidelines or preferences for the book's content",
+                placeholder="E.g., 'Focus on beginner-friendly content', 'Include case studies', etc.",
+            )
+
+            # Generate button
+            submitted = st.form_submit_button(
+                st.session_state.button_text,
+                on_click=disable,
+                disabled=st.session_state.button_disabled,
+            )
+
+            if submitted:
+                # Statistics
+                placeholder = st.empty()
+
+                def display_statistics():
+                    with placeholder.container():
+                        if st.session_state.statistics_text:
+                            if (
+                                "Generating structure in background"
+                                not in st.session_state.statistics_text
+                            ):
+                                st.markdown(
+                                    st.session_state.statistics_text + "\n\n---\n"
+                                )  # Format with line if showing statistics
+                            else:
+                                st.markdown(st.session_state.statistics_text)
+                        else:
+                            placeholder.empty()
+
+                with st.spinner("Generating book"):
+                    if len(topic_text) < 10:
+                        raise ValueError(
+                            "Book topic must be at least 10 characters long"
+                        )
+
+                    st.session_state.button_disabled = True
+                    st.session_state.statistics_text = (
+                        "Generating book title and structure in  background...."
+                    )
+
+                    if uploaded_file:
+                        seed_content += "\n" + process_uploaded_file(uploaded_file)
+
+                    display_statistics()
+
+                    if not GROQ_API_KEY:
+                        st.session_state.groq = Groq(api_key=groq_input_key)
+
+                    large_model_generation_statistics, book_structure = (
+                        generate_book_structure(
+                            topic_text,
+                            additional_instructions,
+                            seed_content,
+                            writing_style,
+                            complexity_level,
+                        )
+                    )
+                    # Generate AI book title
+                    st.session_state.book_title = generate_book_title(topic_text)
+                    st.write(f"## {st.session_state.book_title}")
+
+                    with st.spinner("Generating book structure..."):
+                        large_model_generation_statistics, book_structure = (
+                            generate_book_structure(
+                                topic_text,
+                                additional_instructions,
+                                seed_content,
+                                writing_style,
+                                complexity_level,
                             )
-                            for chunk in content_stream:
-                                # Check if GenerationStatistics data is returned instead of str tokens
-                                chunk_data = chunk
-                                if type(chunk_data) == GenerationStatistics:
-                                    total_generation_statistics.add(chunk_data)
+                        )
 
-                                    st.session_state.statistics_text = str(
-                                        total_generation_statistics
+                    total_generation_statistics = GenerationStatistics(
+                        model_name="llama3-8b-8192"
+                    )
+
+                    try:
+                        book_structure_json = json.loads(book_structure)
+                        book = Book(st.session_state.book_title, book_structure_json)
+
+                        if "book" not in st.session_state:
+                            st.session_state.book = book
+
+                        # Print the book structure to the terminal to show structure
+                        print("line 514")
+                        print(json.dumps(book_structure_json, indent=2))
+
+                        st.session_state.book.display_structure()
+
+                        def stream_section_content(sections):
+                            for title, content in sections.items():
+                                if isinstance(content, str):
+                                    content_stream = generate_section(
+                                        title + ": " + content,
+                                        additional_instructions,
+                                        seed_content,
+                                        writing_style,
+                                        complexity_level,
                                     )
-                                    display_statistics()
+                                    for chunk in content_stream:
+                                        # Check if GenerationStatistics data is returned instead    of str tokens
+                                        chunk_data = chunk
+                                        if type(chunk_data) == GenerationStatistics:
+                                            total_generation_statistics.add(chunk_data)
 
-                                elif chunk != None:
-                                    st.session_state.book.update_content(title, chunk)
-                        elif isinstance(content, dict):
-                            stream_section_content(content)
+                                            st.session_state.statistics_text = str(
+                                                total_generation_statistics
+                                            )
+                                            display_statistics()
 
-                stream_section_content(book_structure_json)
+                                        elif chunk != None:
+                                            st.session_state.book.update_content(
+                                                title, chunk
+                                            )
+                                elif isinstance(content, dict):
+                                    stream_section_content(content)
 
-            except json.JSONDecodeError:
-                st.error("Failed to decode the book structure. Please try again.")
+                        with st.spinner("Generating book content..."):
+                            stream_section_content(book_structure_json)
 
-            enable()
+                        st.success("Book generation complete!")
 
-except Exception as e:
-    st.session_state.button_disabled = False
-    st.error(e)
+                    except json.JSONDecodeError:
+                        st.error(
+                            "Failed to decode the book structure. Please try again."
+                        )
 
-    if st.button("Clear"):
-        st.rerun()
+                    enable()
+
+        
+    except Exception as e:
+        st.session_state.button_disabled = False
+        st.error(e)
+
+        if st.button("Clear"):
+            st.rerun()
+
+with tabs[1]:
+    st.header("Generation Statistics")
+    if "statistics_text" in st.session_state:
+        st.write(st.session_state.statistics_text)
+    else:
+        st.info(
+            "No generation statistics available. Generate a book to see statistics."
+        )
+
+with tabs[2]:
+    st.header("About GroqBook")
+    st.write(
+        """
+    GroqBook is an AI-powered book generation tool that uses the llama3 model (8b and 70b versions) on the Groq platform.
+    It allows users to input a topic, provide seed content, and customize various aspects of the book generation process.
+    
+    Key Features:
+    - Generates full book structures and content
+    - Customizable writing style and complexity level
+    - Ability to input seed content and additional instructions
+    - Provides generation statistics for transparency
+    
+    This tool is designed for educational and creative purposes. The generated content should be reviewed and edited by human authors.
+    """
+    )
