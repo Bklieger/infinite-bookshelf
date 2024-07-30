@@ -1,8 +1,8 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-# Groqbook: Generate entire books in seconds using Groq and Llama3
+# Groqbook: Generate entire books in seconds using Groq and Llama3.1
  
-Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow groqbook to generate quality fiction books as well.
+Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3.1 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3.1-8b and Llama3.1-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow groqbook to generate quality fiction books as well.
 
 [Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
 > Demo of Groqbook fast generation of book content
@@ -16,7 +16,7 @@ Groqbook is a streamlit app that scaffolds the creation of books from a one-line
 
 ### Features
 
-- 📖 Scaffolded prompting that strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
+- 📖 Scaffolded prompting that strategically switches between Llama3.1-70b and Llama3.1-8b to balance speed and quality
 - 🖊️ Uses markdown styling to create an aesthetic book on the streamlit app that includes tables and code 
 - 📂 Allows user to download a text file with the entire book contents
 
@@ -94,7 +94,7 @@ python3 -m streamlit run main.py
 ### Technologies
 
 - Streamlit
-- Llama3 on Groq Cloud
+- Llama3.1 on Groq Cloud
 
 ### Limitations
 
