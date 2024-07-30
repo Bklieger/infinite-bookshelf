@@ -28,7 +28,7 @@ class GenerationStatistics:
         input_tokens=0,
         output_tokens=0,
         total_time=0,
-        model_name="llama3-8b-8192",
+        model_name="llama-3.1-8b-instant",
     ):
         self.input_time = input_time
         self.output_time = output_time
@@ -246,7 +246,7 @@ def generate_book_title(prompt: str):
     Generate a book title using AI.
     """
     completion = st.session_state.groq.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {
                 "role": "system",
@@ -271,7 +271,7 @@ def generate_book_structure(prompt: str):
     Returns book structure content as well as total tokens and total time for generation.
     """
     completion = st.session_state.groq.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {
                 "role": "system",
@@ -297,7 +297,7 @@ def generate_book_structure(prompt: str):
         input_tokens=usage.prompt_tokens,
         output_tokens=usage.completion_tokens,
         total_time=usage.total_time,
-        model_name="llama3-70b-8192",
+        model_name="llama-3.1-70b-versatile",
     )
 
     return statistics_to_return, completion.choices[0].message.content
@@ -305,7 +305,7 @@ def generate_book_structure(prompt: str):
 
 def generate_section(prompt: str, additional_instructions: str):
     stream = st.session_state.groq.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {
                 "role": "system",
@@ -337,7 +337,7 @@ def generate_section(prompt: str, additional_instructions: str):
                 input_tokens=usage.prompt_tokens,
                 output_tokens=usage.completion_tokens,
                 total_time=usage.total_time,
-                model_name="llama3-8b-8192",
+                model_name="llama-3.1-70b-versatile",
             )
             yield statistics_to_return
 
@@ -357,7 +357,7 @@ if 'book_title' not in st.session_state:
 
 st.write(
     """
-# Groqbook: Write full books using llama3 (8b and 70b) on Groq
+# Groqbook: Write full books using Llama3.1 (8b and 70b) on Groq
 """
 )
 
@@ -464,7 +464,7 @@ try:
             large_model_generation_statistics, book_structure = generate_book_structure(topic_text)
 
             total_generation_statistics = GenerationStatistics(
-                model_name="llama3-8b-8192"
+                model_name="llama-3.1-70b-versatile"
             )
 
             try:
