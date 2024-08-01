@@ -1,6 +1,8 @@
+[Demo of Infinite Bookshelf](https://github.com/user-attachments/assets/e65d0bb8-b9db-492b-8da3-f13698e4e474)
+
 <h2 align="center">
  <br>
- Infinite Bookshelf: Generate entire new books in seconds using Groq and Llama 3
+ Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama3
  <br>
 </h2>
 
@@ -22,10 +24,12 @@
 
 ## Overview
 
-Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
+> Imagine you want to learn about Natural Language Processing. You instantly get an 100 page book with chapters, content, and structure. What if you find the language too technical? You can change the prompt and the book – all 100 pages – instantly adapts to your needs. What if you want to learn how to code the technology in python? You can ask for that too, and in seconds, every chapter has code examples alongside the instructional content. That’s the power of an Infinite Bookshelf.
 
 [![Project Demo](https://img.youtube.com/vi/91Ekd5Yp3lU/0.jpg)](https://www.youtube.com/watch?v=91Ekd5Yp3lU)
 > Demo of Infinite Bookshelf fast generation of book content
+
+Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
 
 ---
 
