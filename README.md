@@ -106,8 +106,9 @@ Improvements through PRs are welcome!
 ### v0.2.0
 May 29th, 2024:
 
-[Demo of Infinite Bookshelf Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
-> Demo of Infinite Bookshelf's Generation Statistics
+![Demo of New Statistics](https://github.com/user-attachments/assets/aac277e5-1f91-4de3-9107-2455d4d502cd)
+
+> Added new inference statistics
 
 ### v0.3.0
 June 8th, 2024:
