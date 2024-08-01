@@ -1,6 +1,6 @@
 <h2 align="center">
   <br>
-  <img src="https://i.imgur.com/TCUC9Ic.png" alt="Infinite Bookshelf Logo" width="150">
+  <img src="https://i.imgur.com/TCUC9Ic.png" alt="Infinite Bookshelf Logo" width="200">
  <br>
  <br>
  Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama3
