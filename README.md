@@ -1,10 +1,11 @@
-[Demo of Infinite Bookshelf](https://github.com/user-attachments/assets/e65d0bb8-b9db-492b-8da3-f13698e4e474)
-
 <h2 align="center">
  <br>
  Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama3
  <br>
 </h2>
+
+[Demo of Infinite Bookshelf](https://github.com/user-attachments/assets/e65d0bb8-b9db-492b-8da3-f13698e4e474)
+> Imagine you want to learn about Natural Language Processing. You instantly get an 100 page book with chapters, content, and structure. What if you find the language too technical? You can change the prompt and the book – all 100 pages – instantly adapts to your needs. What if you want to learn how to code the technology in python? You can ask for that too, and in seconds, every chapter has code examples alongside the instructional content. That’s the power of an Infinite Bookshelf.
 
 <p align="center">
  <a href="https://github.com/bklieger/infinite-bookshelf/stargazers"><img src="https://img.shields.io/github/stars/bklieger/infinite-bookshelf"></a>
@@ -23,8 +24,6 @@
 <br>
 
 ## Overview
-
-> Imagine you want to learn about Natural Language Processing. You instantly get an 100 page book with chapters, content, and structure. What if you find the language too technical? You can change the prompt and the book – all 100 pages – instantly adapts to your needs. What if you want to learn how to code the technology in python? You can ask for that too, and in seconds, every chapter has code examples alongside the instructional content. That’s the power of an Infinite Bookshelf.
 
 [![Project Demo](https://img.youtube.com/vi/91Ekd5Yp3lU/0.jpg)](https://www.youtube.com/watch?v=91Ekd5Yp3lU)
 > Demo of Infinite Bookshelf fast generation of book content
