@@ -1,16 +1,16 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-# Groqbook: Generate entire books in seconds using Groq and Llama3
+# Infinite Bookshelf: Generate entire new books in seconds using Groq and Llama 3
  
-Groqbook is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow groqbook to generate quality fiction books as well.
+Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
 
-[Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
-> Demo of Groqbook fast generation of book content
+[Demo of Infinite Bookshelf](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
+> Demo of Infinite Bookshelf fast generation of book content
 
 ---
 
-[Second Part of Demo of Groqbook](https://github.com/Bklieger/groqbook/assets/62450410/5b0147fb-90f3-4584-8572-fa452545d833)
-> Demo of Groqbook downloading markdown-styled book
+[Second Part of Demo of Infinite Bookshelf](https://github.com/Bklieger/groqbook/assets/62450410/5b0147fb-90f3-4584-8572-fa452545d833)
+> Demo of Infinite Bookshelf downloading markdown-styled book
 
 ---
 
@@ -32,24 +32,24 @@ Groqbook is a streamlit app that scaffolds the creation of books from a one-line
 ## Quickstart
 
 > [!IMPORTANT]
-> To use Groqbook, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
-> Alternatively, you can run groqbook locally with streamlit using the quickstart instructions.
+> To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+> Alternatively, you can run Infinite Bookshelf locally with streamlit using the quickstart instructions.
 
 
 ### Hosted on Streamlit:
 
-To use Groqbook, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
 
 
 ### Run locally:
 
-Alternative, you can run groqbook locally with streamlit.
+Alternative, you can run Infinite Bookshelf locally with streamlit.
 
 #### Step 1
 First, you can set your Groq API key in the environment variables:
 
 ~~~
-export $GROQ_API_KEY = gsk_yA...
+export GROQ_API_KEY="gsk_yA..."
 ~~~
 
 This is an optional step that allows you to skip setting the Groq API key later in the streamlit app.
@@ -98,7 +98,7 @@ python3 -m streamlit run main.py
 
 ### Limitations
 
-Groqbook may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
+Infinite Bookshelf may generate inaccurate information or placeholder content. It should be used to generate books for entertainment purposes only.
 
 
 ## Contributing
@@ -111,8 +111,8 @@ Improvements through PRs are welcome!
 ### v0.2.0
 May 29th, 2024:
 
-[Demo of Groqbook Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
-> Demo of Groqbook's Generation Statistics
+[Demo of Infinite Bookshelf Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
+> Demo of Infinite Bookshelf's Generation Statistics
 
 ### v0.3.0
 June 8th, 2024:
