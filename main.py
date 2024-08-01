@@ -357,7 +357,7 @@ if 'book_title' not in st.session_state:
 
 st.write(
     """
-# Groqbook: Write full books using llama3 (8b and 70b) on Groq
+# Infinite Bookshelf: Write full books using llama3 (8b and 70b) on Groq
 """
 )
 
