@@ -53,13 +53,13 @@ Infinite Bookshelf is a streamlit app that scaffolds the creation of books from 
 ## Quickstart
 
 > [!IMPORTANT]
-> To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+> To use Infinite Bookshelf, you can use the hosted version at [infinite.streamlit.app](https://infinite.streamlit.app)
 > Alternatively, you can run Infinite Bookshelf locally with streamlit using the quickstart instructions.
 
 
 ### Hosted on Streamlit:
 
-To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+To use Infinite Bookshelf, you can use the hosted version at [infinite.streamlit.app](https://infinite.streamlit.app)
 
 
 ### Run locally:
