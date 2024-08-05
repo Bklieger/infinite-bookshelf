@@ -2,6 +2,7 @@
 Class for tracking and displaying inference statistics
 """
 
+
 class GenerationStatistics:
     def __init__(
         self,
@@ -61,4 +62,3 @@ class GenerationStatistics:
             f"| Tokens          | {self.input_tokens}            | {self.output_tokens}            | {self.input_tokens + self.output_tokens}            |\n"
             f"| Inference Time (s) | {self.input_time:.2f}            | {self.output_time:.2f}            | {self.total_time:.2f}            |"
         )
-

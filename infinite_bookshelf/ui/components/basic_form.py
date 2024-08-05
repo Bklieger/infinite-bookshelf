@@ -4,11 +4,14 @@ Component function to render basic prompt input form
 
 import streamlit as st
 
+
 def render_groq_form(on_submit, button_disabled=False, button_text="Generate"):
     with st.form("groqform"):
-        groq_input_key = st.text_input(
-            "Enter your Groq API Key (gsk_yA...):", "", type="password"
-        ) if not st.session_state.get('api_key') else None
+        groq_input_key = (
+            st.text_input("Enter your Groq API Key (gsk_yA...):", "", type="password")
+            if not st.session_state.get("api_key")
+            else None
+        )
 
         topic_text = st.text_input(
             "What do you want the book to be about?",

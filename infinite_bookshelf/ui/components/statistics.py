@@ -4,6 +4,7 @@ Component function to render inference statistics
 
 import streamlit as st
 
+
 def display_statistics(placeholder, statistics_text):
     with placeholder.container():
         if statistics_text:

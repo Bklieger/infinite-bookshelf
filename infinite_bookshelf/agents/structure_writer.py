@@ -4,7 +4,10 @@ Agent to generate book structure
 
 from ..inference import GenerationStatistics
 
-def generate_book_structure(prompt: str, additional_instructions: str, model: str, groq_provider):
+
+def generate_book_structure(
+    prompt: str, additional_instructions: str, model: str, groq_provider
+):
     """
     Returns book structure content as well as total tokens and total time for generation.
     """

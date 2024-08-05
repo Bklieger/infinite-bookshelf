@@ -10,12 +10,14 @@ import os
 # load .env file to environment
 load_dotenv()
 
+
 def load_return_env(variables: List[str]) -> Dict[str, str]:
     return {var: os.getenv(var, None) for var in variables}
 
+
 def ensure_states(state_dict: Dict[str, Any]) -> None:
     """
-    Define key values in session state 
+    Define key values in session state
     if key not already defined
     """
     for key, default_value in state_dict.items():

@@ -6,6 +6,7 @@ from io import BytesIO
 from markdown import markdown
 from weasyprint import HTML, CSS
 
+
 def create_pdf_file(content: str) -> BytesIO:
     """
     Create a PDF file from the provided Markdown content.

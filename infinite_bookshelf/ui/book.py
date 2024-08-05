@@ -4,12 +4,15 @@ Class to store and display structured book
 
 import streamlit as st
 
+
 class Book:
     def __init__(self, book_title, structure):
         self.book_title = book_title
         self.structure = structure
         self.contents = {title: "" for title in self.flatten_structure(structure)}
-        self.placeholders = {title: st.empty() for title in self.flatten_structure(structure)}
+        self.placeholders = {
+            title: st.empty() for title in self.flatten_structure(structure)
+        }
         st.markdown(f"# {self.book_title}")
         st.markdown("## Generating the following:")
         toc_columns = st.columns(4)
@@ -38,7 +41,7 @@ class Book:
     def display_structure(self, structure=None, level=1):
         if structure is None:
             structure = self.structure
-            
+
         for title, content in structure.items():
             if self.contents[title].strip():  # Only display title if there is content
                 st.markdown(f"{'#' * level} {title}")
@@ -61,13 +64,13 @@ class Book:
         """
         if structure is None:
             structure = self.structure
-        
-        if level==1:
+
+        if level == 1:
             markdown_content = f"# {self.book_title}\n\n"
-            
+
         else:
             markdown_content = ""
-        
+
         for title, content in structure.items():
             if self.contents[title].strip():  # Only include title if there is content
                 markdown_content += f"{'#' * level} {title}\n{self.contents[title]}\n\n"

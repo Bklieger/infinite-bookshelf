@@ -4,7 +4,10 @@ Agent to generate book section content
 
 from ..inference import GenerationStatistics
 
-def generate_section(prompt: str, additional_instructions: str, model: str, groq_provider):
+
+def generate_section(
+    prompt: str, additional_instructions: str, model: str, groq_provider
+):
     stream = groq_provider.chat.completions.create(
         model=model,
         messages=[

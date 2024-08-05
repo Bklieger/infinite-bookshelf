@@ -4,6 +4,7 @@ Functions to manage markdown content
 
 from io import BytesIO
 
+
 def create_markdown_file(content: str) -> BytesIO:
     """
     Create a Markdown file from the provided content.
