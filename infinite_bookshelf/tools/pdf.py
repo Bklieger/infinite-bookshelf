@@ -4,6 +4,7 @@ Functions to manage pdf content
 
 from io import BytesIO
 from markdown import markdown
+from weasyprint import HTML, CSS
 
 def create_pdf_file(content: str) -> BytesIO:
     """
