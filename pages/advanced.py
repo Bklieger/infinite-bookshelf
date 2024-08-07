@@ -88,11 +88,11 @@ try:
 
     # Fill total_seed_content
     if seed_content:
-        total_seed_content+=seed_content
+        total_seed_content += seed_content
     if uploaded_file:
-        total_seed_content+=uploaded_file.read().decode("utf-8")
+        total_seed_content += uploaded_file.read().decode("utf-8")
     if total_seed_content != "":
-        total_seed_content=f"The user has provided seed content for context. Develop the structure and content around the provided seed: <seed>{total_seed_content}</seed>"
+        total_seed_content = f"The user has provided seed content for context. Develop the structure and content around the provided seed: <seed>{total_seed_content}</seed>"
 
     if submitted:
         if len(topic_text) < 10:
@@ -112,9 +112,11 @@ try:
             st.session_state.groq = Groq(api_key=groq_input_key)
 
         # Step 1: Generate book structure using structure_writer agent
-        additional_instructions_prompt = additional_instructions+advanced_settings_prompt
-        if total_seed_content!="":
-            additional_instructions_prompt+="\n"+total_seed_content
+        additional_instructions_prompt = (
+            additional_instructions + advanced_settings_prompt
+        )
+        if total_seed_content != "":
+            additional_instructions_prompt += "\n" + total_seed_content
 
         large_model_generation_statistics, book_structure = generate_book_structure(
             prompt=topic_text,
@@ -153,8 +155,8 @@ try:
                 for title, content in sections.items():
                     if isinstance(content, str):
                         additional_instructions_prompt = f"{additional_section_writer_prompt}\n{additional_instructions}\n{advanced_settings_prompt}"
-                        if total_seed_content!="":
-                            additional_instructions_prompt+="\n"+total_seed_content
+                        if total_seed_content != "":
+                            additional_instructions_prompt += "\n" + total_seed_content
 
                         content_stream = generate_section(
                             prompt=(title + ": " + content),
