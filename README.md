@@ -1,20 +1,41 @@
-![License](https://img.shields.io/badge/license-MIT-green)
+<h2 align="center">
+  <br>
+  <img src="https://i.imgur.com/TCUC9Ic.png" alt="Infinite Bookshelf Logo" width="200">
+ <br>
+ <br>
+ Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama3
+ <br>
+</h2>
+<p align="center">
+ <a href="https://github.com/bklieger/infinite-bookshelf/stargazers"><img src="https://img.shields.io/github/stars/bklieger/infinite-bookshelf"></a>
+ <a href="https://github.com/bklieger/infinite-bookshelf/blob/main/LICENSE.md">
+ <img src="https://img.shields.io/badge/License-MIT-green.svg">
+ </a>
+</p>
+<p align="center">
+ <a href="#Overview">Overview</a> •
+ <a href="#Features">Features</a> •
+ <a href="#Quickstart">Quickstart</a> •
+ <a href="#Contributing">Contributing</a>
+</p>
 
-# Infinite Bookshelf: Generate entire new books in seconds using Groq and Llama 3
- 
+<br>
+
+[Demo of Infinite Bookshelf](https://github.com/user-attachments/assets/e65d0bb8-b9db-492b-8da3-f13698e4e474)
+> Imagine you want to learn about Natural Language Processing. You instantly get an 100 page book with chapters, content, and structure. What if you find the language too technical? You can change the prompt and the book – all 100 pages – adapts to your needs. What if you want to learn how to code the technology in python? You can ask for that too, and in seconds, every chapter has code examples alongside the instructional content. That’s the power of an Infinite Bookshelf.
+
+---
+
+## Overview
+
+[![Project Demo](https://img.youtube.com/vi/91Ekd5Yp3lU/0.jpg)](https://www.youtube.com/watch?v=91Ekd5Yp3lU)
+> Full demo of Infinite Bookshelf fast generation of book content
+
 Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
 
-[Demo of Infinite Bookshelf](https://github.com/Bklieger/groqbook/assets/62450410/3adb11cd-8264-4289-a28a-49dc5b3cf453)
-> Demo of Infinite Bookshelf fast generation of book content
-
 ---
 
-[Second Part of Demo of Infinite Bookshelf](https://github.com/Bklieger/groqbook/assets/62450410/5b0147fb-90f3-4584-8572-fa452545d833)
-> Demo of Infinite Bookshelf downloading markdown-styled book
-
----
-
-### Features
+## Features
 
 - 📖 Scaffolded prompting that strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
 - 🖊️ Uses markdown styling to create an aesthetic book on the streamlit app that includes tables and code 
@@ -32,13 +53,13 @@ Infinite Bookshelf is a streamlit app that scaffolds the creation of books from 
 ## Quickstart
 
 > [!IMPORTANT]
-> To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+> To use Infinite Bookshelf, you can use the hosted version at [infinite.streamlit.app](https://infinite.streamlit.app)
 > Alternatively, you can run Infinite Bookshelf locally with streamlit using the quickstart instructions.
 
 
 ### Hosted on Streamlit:
 
-To use Infinite Bookshelf, you can use the hosted version at [groqbook.streamlit.app](https://groqbook.streamlit.app)
+To use Infinite Bookshelf, you can use the hosted version at [infinite.streamlit.app](https://infinite.streamlit.app)
 
 
 ### Run locally:
@@ -111,8 +132,9 @@ Improvements through PRs are welcome!
 ### v0.2.0
 May 29th, 2024:
 
-[Demo of Infinite Bookshelf Statistics](https://github.com/Bklieger/groqbook/assets/62450410/b7af2fd5-f587-44ae-bc6d-40c1233c8b7e)
-> Demo of Infinite Bookshelf's Generation Statistics
+![Demo of New Statistics](https://github.com/user-attachments/assets/aac277e5-1f91-4de3-9107-2455d4d502cd)
+
+> Added new inference statistics
 
 ### v0.3.0
 June 8th, 2024:
