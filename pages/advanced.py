@@ -189,7 +189,6 @@ try:
         except json.JSONDecodeError:
             st.error("Failed to decode the book structure. Please try again.")
 
-        enable()
 
 except Exception as e:
     st.session_state.button_disabled = False
