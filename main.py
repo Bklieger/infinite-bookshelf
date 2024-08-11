@@ -44,6 +44,9 @@ st.write(
 """
 )
 
+st.info(
+    "You are using a streamlined version. Try the new [advanced version](/advanced) in beta ."
+)
 
 def disable():
     st.session_state.button_disabled = True
