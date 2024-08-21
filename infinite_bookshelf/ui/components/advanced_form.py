@@ -11,7 +11,6 @@ def render_advanced_groq_form(on_submit, button_disabled=False, button_text="Gen
         st.warning(
             "🚧 Advanced Mode is in beta: You're using a version with experimental features."
         )
-
         st.markdown("### For creating book title:")
         title_agent_model = st.selectbox(
             "Title Agent Model",
@@ -35,6 +34,8 @@ def render_advanced_groq_form(on_submit, button_disabled=False, button_text="Gen
             index=1,
             help="Generates content for each section of the book",
         )
+        st.markdown("\n")
+        st.image("assets/logo/powered-by-groq.png", width=150)
 
     with st.form("groqform"):
         st.info(
