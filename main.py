@@ -44,9 +44,15 @@ st.write(
 """
 )
 
-st.info(
-    "You are using a streamlined version. Try the new [advanced version](/advanced) in beta ."
-)
+col1, col2 = st.columns([0.7,0.3])
+with col1:
+    st.info(
+        "You are using a streamlined version. Try the new [advanced version](/advanced) in beta."
+    )
+
+with col2:
+    st.image("assets/logo/powered-by-groq.png", width=150)
+
 
 def disable():
     st.session_state.button_disabled = True
