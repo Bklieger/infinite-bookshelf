@@ -51,7 +51,7 @@ with col1:
     )
 
 with col2:
-    st.image("assets/logo/powered-by-groq.png", width=150)
+    st.image("assets/logo/powered-by-groq.svg", width=150)
 
 
 def disable():
