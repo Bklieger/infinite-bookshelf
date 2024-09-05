@@ -17,9 +17,17 @@ def generate_book_structure(
     """
 
     if long:
-        USER_PROMPT = f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book. It is very important that use the following subject and additional instructions to write the book. \n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>"
+        USER_PROMPT = f"""Craft a comprehensive and detailed structure for an extensive book (300+ pages), excluding introductory and concluding sections. Ensure each chapter and subsection is distinct, with clear titles and descriptions that avoid overlap. Adhere strictly to the following subject matter and additional guidelines:
+
+<subject>{prompt}</subject>
+
+<additional_instructions>{additional_instructions}</additional_instructions>"""
     else:
-        USER_PROMPT = f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a book. Only provide up to one level of depth for nested sections. Make clear titles and descriptions that have no overlap with other sections. It is very important that use the following subject and additional instructions to write the book. \n\n<subject>{prompt}</subject>\n\n<additional_instructions>{additional_instructions}</additional_instructions>"
+        USER_PROMPT = f"""Design a well-structured outline for a book, providing only one level of depth for nested sections. Create distinct chapters with clear, non-overlapping titles and descriptions. Omit introductory and concluding sections. Adhere strictly to the following subject matter and additional guidelines:
+
+<subject>{prompt}</subject>
+
+<additional_instructions>{additional_instructions}</additional_instructions>"""
 
     completion = groq_provider.chat.completions.create(
         model=model,

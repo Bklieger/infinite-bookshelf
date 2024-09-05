@@ -10,15 +10,15 @@ def generate_book_title(prompt: str, model: str, groq_provider):
     Generate a book title using AI.
     """
     completion = groq_provider.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {
                 "role": "system",
-                "content": "Generate suitable book titles for the provided topics. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be between 7 and 25 words long, and it must be attractive enough!",
+                "content": "Generate a single, captivating book title for the provided topic. The title should be between 7 and 25 words long, engaging, and relevant. Provide only the title without any additional explanation or symbols."
             },
             {
                 "role": "user",
-                "content": f"Generate a book title for the following topic. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be at least 7 words and 25 words long, and it must be attractive enough:\n\n{prompt}",
+                "content": f"Create an enticing book title for the following topic. Remember, provide only one title without any explanation or symbols. The title must be between 7 and 25 words long and should be compelling:\n\n{prompt}"
             },
         ],
         temperature=0.7,

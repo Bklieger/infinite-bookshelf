@@ -13,11 +13,17 @@ def generate_section(
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided. If additional instructions are provided, consider them very important. Only output the content.",
+                "content": "As an expert writer, generate a comprehensive, well-structured, and in-depth chapter for the given section. Pay close attention to any additional instructions provided, as they are crucial to the content's direction and quality. Focus solely on producing the content without any extraneous commentary."
             },
             {
                 "role": "user",
-                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n<section_title>{prompt}</section_title>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
+                "content": f"""Craft a detailed, well-organized, and extensive chapter based on the following section title and important guidelines:
+
+<section_title>{prompt}</section_title>
+
+<additional_instructions>{additional_instructions}</additional_instructions>
+
+Ensure the content is thorough, engaging, and adheres closely to the provided instructions."""
             },
         ],
         temperature=0.3,
