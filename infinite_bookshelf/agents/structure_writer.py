@@ -3,6 +3,12 @@ Agent to generate book structure
 """
 
 from ..inference import GenerationStatistics
+from ..prompts import (
+    STRUCTURE_WRITER_LONG_PROMPT, 
+    STRUCTURE_WRITER_SHORT_PROMPT,
+    ADVANCED_STRUCTURE_WRITER_LONG_PROMPT,
+    ADVANCED_STRUCTURE_WRITER_SHORT_PROMPT
+)
 
 
 def generate_book_structure(
@@ -11,23 +17,18 @@ def generate_book_structure(
     model: str,
     groq_provider,
     long: bool = False,
+    advanced: bool = False
 ):
     """
     Returns book structure content as well as total tokens and total time for generation.
     """
 
-    if long:
-        USER_PROMPT = f"""Craft a comprehensive and detailed structure for an extensive book (300+ pages), excluding introductory and concluding sections. Ensure each chapter and subsection is distinct, with clear titles and descriptions that avoid overlap. Adhere strictly to the following subject matter and additional guidelines:
-
-<subject>{prompt}</subject>
-
-<additional_instructions>{additional_instructions}</additional_instructions>"""
+    if advanced:
+        USER_PROMPT = ADVANCED_STRUCTURE_WRITER_LONG_PROMPT if long else ADVANCED_STRUCTURE_WRITER_SHORT_PROMPT
     else:
-        USER_PROMPT = f"""Design a well-structured outline for a book, providing only one level of depth for nested sections. Create distinct chapters with clear, non-overlapping titles and descriptions. Omit introductory and concluding sections. Adhere strictly to the following subject matter and additional guidelines:
+        USER_PROMPT = STRUCTURE_WRITER_LONG_PROMPT if long else STRUCTURE_WRITER_SHORT_PROMPT
 
-<subject>{prompt}</subject>
-
-<additional_instructions>{additional_instructions}</additional_instructions>"""
+    USER_PROMPT = USER_PROMPT.format(prompt=prompt, additional_instructions=additional_instructions)
 
     completion = groq_provider.chat.completions.create(
         model=model,

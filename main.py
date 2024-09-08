@@ -105,7 +105,7 @@ try:
         # Step 2: Generate book title using title_writer agent
         st.session_state.book_title = generate_book_title(
             prompt=topic_text,
-            model="llama-3.1-70b-versatile",
+            model="llama3-70b-8192",
             groq_provider=st.session_state.groq,
         )
 
@@ -132,7 +132,7 @@ try:
                         content_stream = generate_section(
                             prompt=(title + ": " + content),
                             additional_instructions=additional_instructions,
-                            model="llama-3.1-8b-instant",
+                            model="llama3-8b-8192",
                             groq_provider=st.session_state.groq,
                         )
                         for chunk in content_stream:

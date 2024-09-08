@@ -82,24 +82,8 @@ try:
     )
 
     # New content for advanced mode
-    additional_section_writer_prompt = """Craft comprehensive book chapters that are:
-    1. Captivating and precisely aligned with the specified writing style, tone, and complexity level.
-    2. Meticulously structured with clear, hierarchical subheadings, well-defined paragraphs, and smooth transitions.
-    3. Abundant in pertinent examples, vivid analogies, and lucid explanations to enhance understanding.
-    4. Seamlessly integrated with provided seed content and additional instructions.
-    5. Laser-focused on delivering exceptional value through penetrating analysis and actionable information.
-    6. Rigorously fact-checked and updated with the most current, authoritative information available.
-    7. Imaginative, presenting fresh perspectives and intellectually stimulating ideas.
-    8. Logically coherent, ensuring a smooth flow of ideas within each section and maintaining narrative consistency throughout the chapter.
-    9. Engaging the reader's curiosity and encouraging critical thinking.
-    10. Tailored to the target audience's needs and expectations."""
-
-    advanced_settings_prompt = f"""Adhere strictly to these crucial parameters:
-    1. Writing Style: {writing_style} - Maintain this style consistently throughout the text.
-    2. Complexity Level: {complexity_level} - Ensure all content aligns with this specified level of complexity.
-    3. Audience Engagement: Craft the content to resonate deeply with the intended readership.
-    4. Coherence: Maintain a unified voice and consistent argumentation across all chapters.
-    5. Originality: Strive for unique insights and novel approaches within the chosen topic."""
+    additional_section_writer_prompt = "The book chapters should be comprehensive. The writing should be: \nEngaging and tailored to the specified writing style, tone, and complexity level. \nWell-structured with clear subheadings, paragraphs, and transitions. \nRich in relevant examples, analogies, and explanations. \nConsistent with provided seed content and additional instructions. \nFocused on delivering value through insightful analysis and information. \nFactually accurate based on the latest available information. \nCreative, offering unique perspectives or thought-provoking ideas. \nEnsure each section flows logically, maintaining coherence throughout the chapter."
+    advanced_settings_prompt = f"Use the following parameters:\nWriting Style: {writing_style}\nComplexity Level: {complexity_level}"
     total_seed_content = ""
 
     # Fill total_seed_content
@@ -108,17 +92,7 @@ try:
     if uploaded_file:
         total_seed_content += uploaded_file.read().decode("utf-8")
     if total_seed_content != "":
-        total_seed_content = f"""The user has provided valuable seed content for context. Carefully analyze and integrate this information to develop a cohesive and engaging structure and content:
-
-        <seed>{total_seed_content}</seed>
-
-        Key instructions:
-        1. Seamlessly weave the seed content into the book's narrative.
-        2. Use the seed as a foundation, but expand upon it with original insights and research.
-        3. Ensure the seed content aligns with the overall topic and writing style.
-        4. Address any gaps or inconsistencies in the seed content.
-        5. Maintain a balance between honoring the provided material and creating fresh, valuable content.
-        """
+        total_seed_content = f"The user has provided seed content for context. Develop the structure and content around the provided seed: <seed>{total_seed_content}</seed>"
 
     if submitted:
         if len(topic_text) < 10:
@@ -149,7 +123,8 @@ try:
             additional_instructions=additional_instructions_prompt,
             model=structure_agent_model,
             groq_provider=st.session_state.groq,
-            long=True # Use longer version in advanced
+            long=True, # Use longer version in advanced
+            advanced=IS_ADVANCED_MODE
         )
 
         # Step 2: Generate book title using title_writer agent
@@ -157,6 +132,7 @@ try:
             prompt=topic_text,
             model=title_agent_model,
             groq_provider=st.session_state.groq,
+            advanced=IS_ADVANCED_MODE
         )
 
         st.write(f"## {st.session_state.book_title}")
@@ -190,6 +166,7 @@ try:
                             additional_instructions=additional_instructions_prompt,
                             model=section_agent_model,
                             groq_provider=st.session_state.groq,
+                            advanced=IS_ADVANCED_MODE
                         )
                         for chunk in content_stream:
                             # Check if GenerationStatistics data is returned instead of str tokens
