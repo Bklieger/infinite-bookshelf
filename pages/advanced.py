@@ -123,7 +123,8 @@ try:
             additional_instructions=additional_instructions_prompt,
             model=structure_agent_model,
             groq_provider=st.session_state.groq,
-            long=True # Use longer version in advanced
+            long=True, # Use longer version in advanced
+            advanced=IS_ADVANCED_MODE
         )
 
         # Step 2: Generate book title using title_writer agent
@@ -131,6 +132,7 @@ try:
             prompt=topic_text,
             model=title_agent_model,
             groq_provider=st.session_state.groq,
+            advanced=IS_ADVANCED_MODE
         )
 
         st.write(f"## {st.session_state.book_title}")
@@ -164,6 +166,7 @@ try:
                             additional_instructions=additional_instructions_prompt,
                             model=section_agent_model,
                             groq_provider=st.session_state.groq,
+                            advanced=IS_ADVANCED_MODE
                         )
                         for chunk in content_stream:
                             # Check if GenerationStatistics data is returned instead of str tokens

@@ -3,22 +3,31 @@ Agent to generate book title
 """
 
 from ..inference import GenerationStatistics
+from ..prompts import (
+    TITLE_WRITER_SYSTEM_PROMPT, 
+    TITLE_WRITER_USER_PROMPT,
+    ADVANCED_TITLE_WRITER_SYSTEM_PROMPT,
+    ADVANCED_TITLE_WRITER_USER_PROMPT
+)
 
 
-def generate_book_title(prompt: str, model: str, groq_provider):
+def generate_book_title(prompt: str, model: str, groq_provider, advanced: bool = False):
     """
     Generate a book title using AI.
     """
+    system_prompt = ADVANCED_TITLE_WRITER_SYSTEM_PROMPT if advanced else TITLE_WRITER_SYSTEM_PROMPT
+    user_prompt = ADVANCED_TITLE_WRITER_USER_PROMPT if advanced else TITLE_WRITER_USER_PROMPT
+
     completion = groq_provider.chat.completions.create(
         model="llama3-70b-8192",
         messages=[
             {
                 "role": "system",
-                "content": "Generate suitable book titles for the provided topics. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be between 7 and 25 words long, and it must be attractive enough!",
+                "content": system_prompt,
             },
             {
                 "role": "user",
-                "content": f"Generate a book title for the following topic. There is only one generated book title! Don't give any explanation or add any symbols, just write the title of the book. The requirement for this title is that it must be at least 7 words and 25 words long, and it must be attractive enough:\n\n{prompt}",
+                "content": user_prompt.format(prompt=prompt),
             },
         ],
         temperature=0.7,

@@ -3,21 +3,34 @@ Agent to generate book section content
 """
 
 from ..inference import GenerationStatistics
+from ..prompts import (
+    SECTION_WRITER_SYSTEM_PROMPT, 
+    SECTION_WRITER_USER_PROMPT,
+    ADVANCED_SECTION_WRITER_SYSTEM_PROMPT,
+    ADVANCED_SECTION_WRITER_USER_PROMPT
+)
 
 
 def generate_section(
-    prompt: str, additional_instructions: str, model: str, groq_provider
+    prompt: str, 
+    additional_instructions: str, 
+    model: str, 
+    groq_provider,
+    advanced: bool = False
 ):
+    system_prompt = ADVANCED_SECTION_WRITER_SYSTEM_PROMPT if advanced else SECTION_WRITER_SYSTEM_PROMPT
+    user_prompt = ADVANCED_SECTION_WRITER_USER_PROMPT if advanced else SECTION_WRITER_USER_PROMPT
+
     stream = groq_provider.chat.completions.create(
         model=model,
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided. If additional instructions are provided, consider them very important. Only output the content.",
+                "content": system_prompt,
             },
             {
                 "role": "user",
-                "content": f"Generate a long, comprehensive, structured chapter. Use the following section and important instructions:\n\n<section_title>{prompt}</section_title>\n\n<additional_instructions>{additional_instructions}</additional_instructions>",
+                "content": user_prompt.format(prompt=prompt, additional_instructions=additional_instructions),
             },
         ],
         temperature=0.3,
