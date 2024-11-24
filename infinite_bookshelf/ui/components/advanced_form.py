@@ -1,6 +1,11 @@
 import streamlit as st
 
-MODEL_LIST = ["llama3-70b-8192", "llama3-8b-8192", "gemma2-9b-it"]
+MODEL_LIST = [
+    "gpt-4o-mini",  # Latest model
+    "llama2-70b",   # Powerful base model
+    "llama2-13b",   # Mid-tier model
+    "llama2-7b",    # Lightweight model
+]
 
 
 def render_advanced_groq_form(on_submit, button_disabled=False, button_text="Generate"):
@@ -31,7 +36,7 @@ def render_advanced_groq_form(on_submit, button_disabled=False, button_text="Gen
         section_agent_model = st.selectbox(
             "Section Agent Model",
             MODEL_LIST,
-            index=1,
+            index=0,
             help="Generates content for each section of the book",
         )
         st.markdown("\n")

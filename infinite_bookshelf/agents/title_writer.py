@@ -2,39 +2,55 @@
 Agent to generate book title
 """
 
+import requests
 from ..inference import GenerationStatistics
-from ..prompts import (
-    TITLE_WRITER_SYSTEM_PROMPT, 
-    TITLE_WRITER_USER_PROMPT,
-    ADVANCED_TITLE_WRITER_SYSTEM_PROMPT,
-    ADVANCED_TITLE_WRITER_USER_PROMPT
-)
 
 
-def generate_book_title(prompt: str, model: str, groq_provider, advanced: bool = False):
+def generate_book_title(prompt: str, model: str, headers):
     """
     Generate a book title using AI.
     """
-    system_prompt = ADVANCED_TITLE_WRITER_SYSTEM_PROMPT if advanced else TITLE_WRITER_SYSTEM_PROMPT
-    user_prompt = ADVANCED_TITLE_WRITER_USER_PROMPT if advanced else TITLE_WRITER_USER_PROMPT
-
-    completion = groq_provider.chat.completions.create(
-        model="llama3-70b-8192",
-        messages=[
+    url = "https://free.v36.cm/v1/chat/completions"
+    
+    data = {
+        "model": "gpt-4o-mini",
+        "messages": [
             {
                 "role": "system",
-                "content": system_prompt,
+                "content": """You are an expert in crafting bestselling book titles that drive sales and engagement. Your titles should be:
+1. Attention-grabbing and memorable
+2. SEO-optimized with relevant keywords
+3. Between 7-25 words, with a strong main title and optional subtitle
+4. Market-tested formats (e.g., "The Ultimate Guide to...", "Mastering...", "X Secrets of...")
+5. Clear value proposition for the reader
+6. Emotionally resonant and curiosity-inducing
+7. Professional and authoritative
+
+Output only the title - no explanations or additional text.""",
             },
             {
                 "role": "user",
-                "content": user_prompt.format(prompt=prompt),
+                "content": f"""Create a compelling, marketable book title that:
+- Uses proven title patterns that drive sales
+- Incorporates relevant keywords for SEO
+- Promises clear value or benefits
+- Creates curiosity or emotional connection
+- Maintains professional authority
+- Includes an optional subtitle for clarity
+- Is between 7-25 words total
+
+Topic to create title for:
+{prompt}""",
             },
         ],
-        temperature=0.7,
-        max_tokens=100,
-        top_p=1,
-        stream=False,
-        stop=None,
-    )
+        "temperature": 0.7,
+        "max_tokens": 100,
+        "top_p": 1,
+        "stream": False,
+        "stop": None,
+    }
 
-    return completion.choices[0].message.content.strip()
+    response = requests.post(url, json=data, headers=headers)
+    completion = response.json()
+
+    return completion['choices'][0]['message']['content'].strip()

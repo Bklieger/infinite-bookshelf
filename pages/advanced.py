@@ -1,7 +1,7 @@
 # 1: Import libraries
 import streamlit as st
-from groq import Groq
 import json
+import requests
 
 from infinite_bookshelf.agents import (
     generate_section,
@@ -31,9 +31,10 @@ states = {
 }
 
 if GROQ_API_KEY:
-    states["groq"] = (
-        Groq()
-    )  # Define Groq provider if API key provided. Otherwise defined later after API key is provided.
+    states["groq_headers"] = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json"
+    }
 
 ensure_states(states)
 
@@ -41,7 +42,7 @@ ensure_states(states)
 # 3: Define Streamlit page structure and functionality
 st.write(
     """
-# Infinite Bookshelf: Write full books using llama3 (8b and 70b) on Groq
+# Infinite Bookshelf: Write full books using GPT-4o-mini
 """
 )
 
@@ -109,7 +110,10 @@ try:
         )
 
         if not GROQ_API_KEY:
-            st.session_state.groq = Groq(api_key=groq_input_key)
+            st.session_state.groq_headers = {
+                "Authorization": f"Bearer {groq_input_key}",
+                "Content-Type": "application/json"
+            }
 
         # Step 1: Generate book structure using structure_writer agent
         additional_instructions_prompt = (
@@ -122,17 +126,15 @@ try:
             prompt=topic_text,
             additional_instructions=additional_instructions_prompt,
             model=structure_agent_model,
-            groq_provider=st.session_state.groq,
-            long=True, # Use longer version in advanced
-            advanced=IS_ADVANCED_MODE
+            headers=st.session_state.groq_headers,
+            long=True # Use longer version in advanced
         )
 
         # Step 2: Generate book title using title_writer agent
         st.session_state.book_title = generate_book_title(
             prompt=topic_text,
             model=title_agent_model,
-            groq_provider=st.session_state.groq,
-            advanced=IS_ADVANCED_MODE
+            headers=st.session_state.groq_headers,
         )
 
         st.write(f"## {st.session_state.book_title}")
@@ -165,8 +167,7 @@ try:
                             prompt=(title + ": " + content),
                             additional_instructions=additional_instructions_prompt,
                             model=section_agent_model,
-                            groq_provider=st.session_state.groq,
-                            advanced=IS_ADVANCED_MODE
+                            headers=st.session_state.groq_headers,
                         )
                         for chunk in content_stream:
                             # Check if GenerationStatistics data is returned instead of str tokens

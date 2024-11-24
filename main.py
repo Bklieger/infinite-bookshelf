@@ -1,6 +1,5 @@
 # 1: Import libraries
 import streamlit as st
-from groq import Groq
 import json
 
 from infinite_bookshelf.agents import (
@@ -30,9 +29,10 @@ states = {
 }
 
 if GROQ_API_KEY:
-    states["groq"] = (
-        Groq()
-    )  # Define Groq provider if API key provided. Otherwise defined later after API key is provided.
+    states["groq_headers"] = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json"
+    }
 
 ensure_states(states)
 
@@ -40,7 +40,7 @@ ensure_states(states)
 # 3: Define Streamlit page structure and functionality
 st.write(
     """
-# Infinite Bookshelf: Write full books using llama3 (8b and 70b) on Groq
+# Infinite Bookshelf: Write full books using GPT-4o-mini
 """
 )
 
@@ -92,26 +92,29 @@ try:
         )
 
         if not GROQ_API_KEY:
-            st.session_state.groq = Groq(api_key=groq_input_key)
+            st.session_state.groq_headers = {
+                "Authorization": f"Bearer {groq_input_key}",
+                "Content-Type": "application/json"
+            }
 
         # Step 1: Generate book structure using structure_writer agent
         large_model_generation_statistics, book_structure = generate_book_structure(
             prompt=topic_text,
             additional_instructions=additional_instructions,
-            model="llama3-70b-8192",
-            groq_provider=st.session_state.groq,
+            model="GPT-4o-mini",
+            headers=st.session_state.groq_headers,
         )
 
         # Step 2: Generate book title using title_writer agent
         st.session_state.book_title = generate_book_title(
             prompt=topic_text,
-            model="llama3-70b-8192",
-            groq_provider=st.session_state.groq,
+            model="GPT-4o-mini",
+            headers=st.session_state.groq_headers,
         )
 
         st.write(f"## {st.session_state.book_title}")
 
-        total_generation_statistics = GenerationStatistics(model_name="llama3-8b-8192")
+        total_generation_statistics = GenerationStatistics(model_name="GPT-4o-mini")
 
         # Step 3: Generate book section content using section_writer agent
         try:
@@ -132,8 +135,8 @@ try:
                         content_stream = generate_section(
                             prompt=(title + ": " + content),
                             additional_instructions=additional_instructions,
-                            model="llama3-8b-8192",
-                            groq_provider=st.session_state.groq,
+                            model="GPT-4o-mini",
+                            headers=st.session_state.groq_headers,
                         )
                         for chunk in content_stream:
                             # Check if GenerationStatistics data is returned instead of str tokens
