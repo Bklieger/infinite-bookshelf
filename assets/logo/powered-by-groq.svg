@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="30" font-family="Arial" font-size="16" fill="#333">
+    Powered by Groq
+  </text>
+</svg>
