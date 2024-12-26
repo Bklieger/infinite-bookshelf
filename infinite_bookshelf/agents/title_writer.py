@@ -10,7 +10,7 @@ def generate_book_title(prompt: str, model: str, groq_provider):
     Generate a book title using AI.
     """
     completion = groq_provider.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-specdec",
         messages=[
             {
                 "role": "system",
