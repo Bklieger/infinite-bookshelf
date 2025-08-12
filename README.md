@@ -3,7 +3,7 @@
   <img src="https://i.imgur.com/TCUC9Ic.png" alt="Infinite Bookshelf Logo" width="200">
  <br>
  <br>
- Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama3
+ Infinite Bookshelf: Generate entire new books<br>in seconds using Groq and Llama
  <br>
 </h2>
 <p align="center">
@@ -31,7 +31,7 @@
 [![Project Demo](https://img.youtube.com/vi/91Ekd5Yp3lU/0.jpg)](https://www.youtube.com/watch?v=91Ekd5Yp3lU)
 > Full demo of Infinite Bookshelf fast generation of book content
 
-Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama3 on Groq. It works well on nonfiction books and generates each chapter within seconds. The app is able to mix usage of two models, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
+Infinite Bookshelf is a streamlit app that scaffolds the creation of books from a one-line prompt using Llama on Groq. It works well on nonfiction books and generates each chapter within seconds. The app is able to mix usage of two models, utilizing the larger model for generating the structure and the smaller of the two for creating the content. Currently, the model only uses the context of the section title to generate the chapter content. In the future, this will be expanded to the fuller context of the book to allow Infinite Bookshelf to generate quality fiction books as well.
 
 ---
 

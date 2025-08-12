@@ -41,7 +41,7 @@ ensure_states(states)
 # 3: Define Streamlit page structure and functionality
 st.write(
     """
-# Infinite Bookshelf: Write full books using llama3.3 70b on Groq
+# Infinite Bookshelf: Write full books using Llama on Groq
 """
 )
 
